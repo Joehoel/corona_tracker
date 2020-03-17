@@ -1,25 +1,28 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import "normalize.css";
+import React from "react";
+import Card from "./components/Card";
+import { Flex, Global } from "./components/elements/";
+import Map from "./components/Map";
+import Spinner from "./components/Spinner";
+import useStats from "./utils/useStats";
+import L from "leaflet";
 
 function App() {
+  const stats = useStats();
+  if (!stats) return <Spinner />;
+  const { confirmed, deaths, recovered } = stats.latest;
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Global />
+      <Flex>
+        <Card title="Confirmed" value={confirmed} />
+        <Card title="Deaths" value={deaths} />
+        <Card title="Recovered" value={recovered} />
+        {/* <Card title="Confirmed" value={confirmed} /> */}
+      </Flex>
+      <Map />
+    </>
   );
 }
 
