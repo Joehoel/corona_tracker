@@ -10,50 +10,38 @@ import useStats from "../utils/useStats";
 import Spinner from "./Spinner";
 import L from "leaflet";
 
-export default function Map({ children }) {
-  const stats = useStats();
+export default function Map({ stats }) {
   if (!stats) return <Spinner />;
 
   const Icon = L.icon({
     iconUrl: "https://unpkg.com/leaflet@1.6.0/dist/images/marker-icon.png",
     iconSize: [25, 41],
-    iconAnchor: [22, 94],
-    popupAnchor: [0, -76]
+    iconAnchor: [12.5, 41],
+    popupAnchor: [0, -41]
   });
 
   const markers = stats.deaths.locations;
 
   const randomMarker = () => {
     const i = Math.floor(Math.random() * markers.length);
-    console.log(markers[i]);
     return [markers[i].coordinates.lat, markers[i].coordinates.long];
   };
 
-  const mapConfig = {
+  const config = {
     center: randomMarker(),
-    zoom: 3
+    zoom: 5
   };
 
-  const LeafletMarkers = markers.map((marker) => (
-    <Marker
-      position={(Object.values(marker).lat, Object.values(marker).long)}
-      key={`marker_`}
-      icon={Icon}
-    >
-      <Popup>
-        <span>Test</span>
-      </Popup>
-    </Marker>
-  ));
   return (
     <Leaflet
-      center={mapConfig.center}
-      zoom={mapConfig.zoom}
+      center={config.center}
+      zoom={config.zoom}
       className="map__reactleaflet"
+      zoomControl={false}
     >
       <Tile
-        url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png"
-        attribution='&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy; <a href="https://carto.com/attribution">CARTO</a>'
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        attribution='&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
       />
       {markers.map(({ coordinates, country, country_code }, i) => (
         <Marker

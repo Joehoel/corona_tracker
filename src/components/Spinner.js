@@ -1,13 +1,11 @@
 import React from "react";
-
+import spinner from "../assets/loader.gif";
+import { Center } from "./elements";
 const Spinner = () => {
   return (
-    <div className="lds-ring">
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-    </div>
+    <Center>
+      <img src={spinner} alt="loading..." />
+    </Center>
   );
 };
 
