@@ -1,3 +1,4 @@
+import L from "leaflet";
 import React from "react";
 import {
   Map as Leaflet,
@@ -5,17 +6,17 @@ import {
   Popup,
   TileLayer as Tile
 } from "react-leaflet";
-import useFetch from "../utils/useFetch";
 import Spinner from "./Spinner";
-import L from "leaflet";
+import markerUrl from "../assets/marker.png";
 
 export default function Map({ stats }) {
   if (!stats) return <Spinner />;
 
   const Icon = L.icon({
-    iconUrl: "https://unpkg.com/leaflet@1.6.0/dist/images/marker-icon.png",
-    iconSize: [25, 41],
-    iconAnchor: [12.5, 41],
+    iconUrl: markerUrl,
+    // iconUrl: "https://unpkg.com/leaflet@1.6.0/dist/images/marker-icon.png",
+    iconSize: [41, 41],
+    iconAnchor: [20.5, 41],
     popupAnchor: [0, -41]
   });
 
@@ -49,7 +50,9 @@ export default function Map({ stats }) {
           icon={Icon}
         >
           <Popup>
-            <span>{country}</span>
+            <span>
+              {country}, {country_code}
+            </span>
           </Popup>
         </Marker>
       ))}
