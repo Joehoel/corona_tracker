@@ -1,4 +1,3 @@
-import "leaflet/dist/leaflet.css";
 import React from "react";
 import {
   Map as Leaflet,
@@ -6,7 +5,7 @@ import {
   Popup,
   TileLayer as Tile
 } from "react-leaflet";
-import useStats from "../utils/useStats";
+import useFetch from "../utils/useFetch";
 import Spinner from "./Spinner";
 import L from "leaflet";
 

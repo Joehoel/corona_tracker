@@ -1,16 +1,21 @@
-import "normalize.css";
 import React from "react";
-import Card from "./components/Card";
-import { Stats, Global, Currently } from "./components/elements/";
+import { Stats, Global } from "./components/elements/";
 import Map from "./components/Map";
 import Spinner from "./components/Spinner";
-import useStats from "./utils/useStats";
+import useFetch from "./utils/useFetch";
+
+import { Card, CardText, CardBody, Row, Col, CardHeader } from "reactstrap";
 
 function App() {
-  const stats = useStats("https://coronavirus-tracker-api.herokuapp.com/all");
-  if (!stats) return <Spinner />;
-  const { confirmed, deaths, recovered } = stats.latest;
-  const { last_updated } = stats.deaths;
+  const { data, error, loading } = useFetch(
+    "https://coronavirus-tracker-api.herokuapp.com/all"
+  );
+
+  if (error) console.log(error);
+  if (loading) return <Spinner />;
+
+  const { confirmed, deaths, recovered } = data.latest;
+  const { last_updated } = data.deaths;
 
   const last = `${new Date(last_updated).toLocaleDateString()} ${new Date(
     last_updated
@@ -19,16 +24,59 @@ function App() {
   return (
     <>
       <Global />
-      <Currently>
-        <h3>Displaying: Current Deaths</h3>
-        <p>Last updated: {last}</p>
-      </Currently>
+      <Card
+        style={{ width: "300px" }}
+        className="above currently mt-3 ml-3 text-center"
+      >
+        <CardHeader className="font-weight-bold">
+          Displaying: Current Deaths
+        </CardHeader>
+        <CardBody>
+          <CardText>Last updated: {last}</CardText>
+        </CardBody>
+      </Card>
       <Stats>
-        <Card title="Confirmed" value={confirmed} />
-        <Card title="Deaths" value={deaths} />
-        <Card title="Recovered" value={recovered} />
+        <Row>
+          <Col>
+            <Card
+              style={{ width: "200px" }}
+              className="above  mt-3 mr-3 text-center"
+            >
+              <CardHeader className="font-weight-bold">Deaths</CardHeader>
+              <CardBody>
+                <CardText>{deaths}</CardText>
+              </CardBody>
+            </Card>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <Card
+              style={{ width: "200px" }}
+              className="above  mt-3 mr-3 text-center"
+            >
+              <CardHeader className="font-weight-bold">Confirmed</CardHeader>
+              <CardBody>
+                <CardText>{confirmed}</CardText>
+              </CardBody>
+            </Card>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <Card
+              style={{ width: "200px" }}
+              className="above  mt-3 mr-3 text-center"
+            >
+              <CardHeader className="font-weight-bold">Recovered</CardHeader>
+              <CardBody>
+                <CardText>{recovered}</CardText>
+              </CardBody>
+            </Card>
+          </Col>
+        </Row>
       </Stats>
-      <Map stats={stats} />
+      <Map stats={data} />
     </>
   );
 }

@@ -50,6 +50,13 @@ export const Global = createGlobalStyle`
     width: 100vw;
     
   }
+  .above {
+    z-index: 999 !important;
+  }
+  
+  .currently {
+    position: absolute;
+  }
 `;
 
 export const Center = styled.div`
