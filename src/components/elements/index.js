@@ -41,6 +41,7 @@ export const CardStyle = styled.div`
 `;
 
 export const Global = createGlobalStyle`
+
  html {
    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
    

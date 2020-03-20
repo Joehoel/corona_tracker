@@ -5,7 +5,7 @@ import Spinner from "./components/Spinner";
 import useFetch from "./utils/useFetch";
 import Information from "./components/Information";
 
-function App() {
+const App = () => {
   const { data, error, loading } = useFetch(
     "https://coronavirus-tracker-api.herokuapp.com/all"
   );
@@ -32,6 +32,6 @@ function App() {
       <Map stats={data} />
     </>
   );
-}
+};
 
 export default App;

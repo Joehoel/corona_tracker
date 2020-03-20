@@ -4,4 +4,5 @@ import App from "./App";
 import "normalize.css";
 import "leaflet/dist/leaflet.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+
 ReactDOM.render(<App />, document.getElementById("root"));

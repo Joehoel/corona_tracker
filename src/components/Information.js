@@ -4,7 +4,7 @@ import { Stats } from "./elements";
 
 const Information = ({ last, deaths, confirmed, recovered }) => {
   return (
-    <div>
+    <>
       <Card
         style={{ width: "300px" }}
         className="above currently mt-3 ml-3 text-center"
@@ -57,7 +57,7 @@ const Information = ({ last, deaths, confirmed, recovered }) => {
           </Col>
         </Row>
       </Stats>
-    </div>
+    </>
   );
 };
 
